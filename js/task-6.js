@@ -22,7 +22,7 @@ function handlerCreateCollection(event) {
     return;
   }
   let collectionDivs = document.createDocumentFragment()
-  console.dir(collectionDivs);
+  // console.dir(collectionDivs);
   for (let i = 1; i <= valueInput; i++) {
 
     let divChild = document.createElement("div");
