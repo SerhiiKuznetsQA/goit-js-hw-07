@@ -2,43 +2,46 @@ const inputValue = document.querySelector("input[type=number]");
 const createElem = document.querySelector("[data-create]");
 const deleteElem = document.querySelector("[data-destroy]");
 const createBox = document.querySelector("#boxes");
-inputValue.addEventListener("input", handlerInputA);
+inputValue.addEventListener("input", handlerInput);
 inputValue.addEventListener("blur", () => {
   inputValue.value = "";
 });
-deleteElem.addEventListener("click", handlerDelete);
-createElem.addEventListener("click", handlerCreate);
+deleteElem.addEventListener("click", handlerDeleteCollection);
+createElem.addEventListener("click", handlerCreateCollection);
 createElem.addEventListener("click", getRandomHexColor);
 let valueInput = 0;
-function handlerInputA(event) {
+function handlerInput(event) {
   if (event) {
     valueInput = inputValue.valueAsNumber;
   }
 }
-let width = 30;
-let height = 30;
-function handlerCreate(event) {
-  if (valueInput < 1 || valueInput > 100 || valueInput === " ") {
+let widthDiv = 30;
+let heightDiv = 30;
+function handlerCreateCollection(event) {
+  if (valueInput < 1 || valueInput > 100 || isNaN(valueInput)) {
     return;
   }
-
+  let collectionDivs = document.createDocumentFragment()
+  console.dir(collectionDivs);
   for (let i = 1; i <= valueInput; i++) {
-    let divDiv = document.createElement("div");
 
-    divDiv.style.width = `${width}px`;
-    divDiv.style.height = `${height}px`;
-    divDiv.style.backgroundColor = getRandomHexColor();
-    width += 10;
-    height += 10;
-    createBox.append(divDiv);
+    let divChild = document.createElement("div");
+    divChild.style.width = `${widthDiv}px`;
+    divChild.style.height = `${heightDiv}px`;
+    divChild.style.backgroundColor = getRandomHexColor();
+    widthDiv += 10;
+    heightDiv += 10;
+    collectionDivs.append(divChild);
   }
-  valueInput = "";
+   valueInput = "";
+  createBox.append(collectionDivs);
+ 
 }
 
-function handlerDelete() {
+function handlerDeleteCollection() {
   createBox.innerHTML = "";
-   width = 30;
-   height = 30;
+  widthDiv = 30;
+  heightDiv = 30;
 }
 
 function getRandomHexColor() {
